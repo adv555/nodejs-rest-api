@@ -15,9 +15,10 @@ const getContactById = async (req, res, next) => {
 
   try {
     const contactById = await getById(contactId)
+    console.log(contactId)
     if (!contactById) {
       throw new NotFound()
-      //   res.status(404).json({ code: 404, message: 'Not Found' })
+      // res.status(404).json({ code: 404, message: 'Not Found' })
     }
     res.json({ status: 'success', code: 200, data: { contactById } })
   } catch (error) {
@@ -46,12 +47,8 @@ const removeContact = async (req, res, next) => {
 }
 const addContact = async (req, res, next) => {
   try {
-    // console.log('body', req.body)
+    console.log('body', req.body)
 
-    // const { error } = joiSchema.validate(req.body)
-    // if (error) {
-    //   throw new BadRequest(error.message)
-    // }
     const newContact = await add(req.body)
     res.status(201).json({
       status: 'success',
