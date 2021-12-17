@@ -18,7 +18,6 @@ const getContactById = async (req, res, next) => {
     console.log(contactId)
     if (!contactById) {
       throw new NotFound()
-      // res.status(404).json({ code: 404, message: 'Not Found' })
     }
     res.json({ status: 'success', code: 200, data: { contactById } })
   } catch (error) {
@@ -33,7 +32,6 @@ const removeContact = async (req, res, next) => {
     const deletedContact = await removeById(contactId)
     if (!deletedContact) {
       throw new NotFound()
-      //   res.status(404).json({ code: 404, message: 'Not Found' })
     }
     res.json({
       status: 'success',
