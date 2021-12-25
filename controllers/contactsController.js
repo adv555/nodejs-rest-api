@@ -22,7 +22,7 @@ const getContactById = async (req, res, next) => {
   } catch (error) {
     if (error.message.includes('Cast to ObjectId failed')) {
       error.status = 404
-      // error.message = 'Not Found'
+      error.message = 'Not Found'
     }
     next(error)
   }
@@ -44,6 +44,10 @@ const removeContact = async (req, res, next) => {
       data: { deletedContact },
     })
   } catch (error) {
+    if (error.message.includes('Cast to ObjectId failed')) {
+      error.status = 404
+      error.message = 'Not Found'
+    }
     next(error)
   }
 }
@@ -60,7 +64,6 @@ const addContact = async (req, res, next) => {
   } catch (error) {
     if (error.message.includes('validation failed')) {
       error.status = 400
-      error.message = 'bad request'
     }
     next(error)
   }
@@ -75,7 +78,6 @@ const updateContact = async (req, res, next) => {
   } catch (error) {
     if (error.message.includes('validation failed')) {
       error.status = 400
-      error.message = 'bad request'
     }
     next(error)
   }
