@@ -1,7 +1,5 @@
-const app = require('../app')
-require('dotenv').config()
 const mongoose = require('mongoose')
-const { exist } = require('joi')
+const app = require('../app')
 
 const { DB_HOST, PORT = 3000 } = process.env
 
@@ -15,5 +13,5 @@ mongoose
   })
   .catch(err => {
     console.log('Error at a server launch', err.message)
-    exist(1)
+    process.exist(1)
   })

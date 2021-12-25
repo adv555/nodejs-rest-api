@@ -60,7 +60,7 @@ const addContact = async (req, res, next) => {
   } catch (error) {
     if (error.message.includes('validation failed')) {
       error.status = 400
-      error.message = 'Bad Request'
+      error.message = 'bad request'
     }
     next(error)
   }
@@ -75,7 +75,7 @@ const updateContact = async (req, res, next) => {
   } catch (error) {
     if (error.message.includes('validation failed')) {
       error.status = 400
-      error.message = 'Bad Request'
+      error.message = 'bad request'
     }
     next(error)
   }
@@ -94,7 +94,7 @@ const updateContactStatus = async (req, res, next) => {
   } catch (error) {
     if (error.message.includes('validation failed')) {
       error.status = 400
-      error.message = 'Bad Request'
+      error.message = 'missing field favorite'
     }
     next(error)
   }
