@@ -14,7 +14,6 @@ const getContactById = async (req, res, next) => {
   const { contactId } = req.params
   try {
     const contactById = await Contact.findById(contactId)
-
     if (!contactById) {
       throw new NotFound()
     }
@@ -53,7 +52,6 @@ const removeContact = async (req, res, next) => {
 }
 const addContact = async (req, res, next) => {
   try {
-    console.log('body', req.body)
     const newContact = await Contact.create(req.body)
     res.status(201).json({
       status: 'success',
@@ -72,7 +70,7 @@ const addContact = async (req, res, next) => {
 const updateContact = async (req, res, next) => {
   try {
     const { contactId } = req.params
-    console.log(req.body)
+
     const updatedContact = await Contact.findByIdAndUpdate(contactId, req.body, { new: true })
     res.json({ status: 'success', code: 200, message: 'contact updated', data: { updatedContact } })
   } catch (error) {

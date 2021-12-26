@@ -13,5 +13,5 @@ mongoose
   })
   .catch(err => {
     console.log('Error at a server launch', err.message)
-    process.exist(1)
+    process.exit(1)
   })
