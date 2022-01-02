@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { contactValidation, contactStatusValidation } = require('../../middlewares/validation')
+const {
+  contactValidation,
+  contactStatusValidation,
+} = require('../../middlewares/contactValidation')
 
 const {
   listContacts,
