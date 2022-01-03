@@ -1,7 +1,10 @@
 // const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const { Conflict, Unauthorized } = require('http-errors')
 const { User } = require('../models')
 // const hashPassword = require('../helpers/hashPassword')
+
+const { SECRET_KEY } = process.env
 
 const userSignup = async (req, res, next) => {
   try {
@@ -50,9 +53,36 @@ const userLogin = async (req, res, next) => {
     if (!passwordCompare) {
       throw new Unauthorized('Email or password is wrong')
     }
+    const { _id, subscription } = user
+    const payload = {
+      id: _id,
+    }
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' })
+    await User.findByIdAndUpdate(_id, { token })
+    res.json({
+      token,
+      user: { email, subscription },
+    })
   } catch (error) {
     next(error)
   }
 }
 
-module.exports = { userSignup, userLogin }
+const userLogOut = async (req, res, next) => {
+  const { _id } = req.user
+  await User.findByIdAndUpdate({ _id }, { token: null })
+
+  res.status(204).json()
+}
+
+const isLoggedIn = async (req, res, next) => {
+  const currentUser = req.user
+  const { email, subscription } = currentUser
+
+  res.json({
+    email,
+    subscription,
+  })
+}
+
+module.exports = { userSignup, userLogin, userLogOut, isLoggedIn }

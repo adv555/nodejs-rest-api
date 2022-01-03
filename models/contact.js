@@ -17,4 +17,4 @@ const contactShema = Schema(
 
 const Contact = model('contact', contactShema)
 
-module.exports = Contact
+module.exports = { Contact }
