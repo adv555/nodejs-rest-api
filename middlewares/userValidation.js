@@ -3,8 +3,8 @@ const { BadRequest } = require('http-errors')
 const { emailRegExp } = require('../helpers/regExp')
 
 const joiSchemaUser = Joi.object({
-  password: Joi.string().min(6).required(),
   email: Joi.string().pattern(emailRegExp).required(),
+  password: Joi.string().min(6).required(),
   subscription: Joi.string().default('starter'),
 })
 

@@ -7,15 +7,15 @@ const {
 } = require('../../middlewares/contactValidation')
 
 const {
-  listContacts,
+  getContactsList,
   getContactById,
   removeContact,
   addContact,
   updateContact,
   updateContactStatus,
-} = require('../../controllers/contactsController')
+} = require('../../controllers/contacts')
 
-router.get('/', authenticate, listContacts)
+router.get('/', authenticate, getContactsList)
 router.get('/:contactId', authenticate, getContactById)
 router.post('/', authenticate, contactValidation, addContact)
 router.delete('/:contactId', authenticate, removeContact)
