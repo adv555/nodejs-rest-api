@@ -3,22 +3,6 @@ const logger = require('morgan')
 const cors = require('cors')
 require('dotenv').config()
 
-// const jwt = require('jsonwebtoken')
-// const SECRET_KEY = '2reIIONjkll;;;jhjkl'
-// const payload = {
-//   id: '61d20a9c714cacf94f51e94c',
-// }
-// const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' })
-// console.log(token)
-// const decodToken = jwt.decode(token)
-// console.log(decodToken)
-// try {
-//   const verifyToken = jwt.verify(`${token}2`, SECRET_KEY)
-//   console.log(verifyToken)
-// } catch (error) {
-//   console.log(error.message)
-// }
-
 const usersRouter = require('./routes/api/users')
 const contactsRouter = require('./routes/api/contacts')
 
@@ -39,7 +23,7 @@ app.use((req, res) => {
 
 app.use((err, req, res, next) => {
   const { status = 500, message = 'Server error' } = err
-  res.status(status).json({ message: `${message} in app.js` })
+  res.status(status).json({ message })
 })
 
 module.exports = app
