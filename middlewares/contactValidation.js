@@ -1,12 +1,11 @@
 const Joi = require('joi')
 const { BadRequest } = require('http-errors')
+const { emailRegExp, phoneRegExp } = require('../helpers/regExp')
 
 const joiSchemaContact = Joi.object({
   name: Joi.string().min(3).max(30).required(),
-  email: Joi.string().email().required(),
-  phone: Joi.string()
-    .pattern(/^([+]?\d{1,2}[-\s]?|)\d{3}[-\s]?\d{3}[-\s]?\d{4}$/)
-    .required(),
+  email: Joi.string().pattern(emailRegExp).required(),
+  phone: Joi.string().pattern(phoneRegExp).required(),
   favorite: Joi.boolean(),
 })
 
