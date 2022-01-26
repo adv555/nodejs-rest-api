@@ -1,7 +1,6 @@
 const { User } = require('../../models')
 const { BadRequest, NotFound } = require('http-errors')
 const sendEmail = require('../../helpers/sendEmail')
-// const createTemplate = require('../../helpers/mailGenerator')
 const template = require('../../helpers/templateConformationEmail')
 
 const { SITE_NAME } = process.env
@@ -9,7 +8,6 @@ const { SITE_NAME } = process.env
 const resendingEmailVerification = async (req, res, next) => {
   try {
     const { email } = req.body
-    console.log(email)
 
     const user = await User.findOne({ email })
     if (!user) {
@@ -24,9 +22,7 @@ const resendingEmailVerification = async (req, res, next) => {
     const data = {
       to: email,
       subject: 'Welcome! Please confirm your email',
-
       html: template(SITE_NAME, verificationToken),
-      // html: createTemplate(email, SITE_NAME, verificationToken),
     }
     sendEmail(data)
 

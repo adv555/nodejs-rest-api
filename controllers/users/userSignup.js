@@ -3,7 +3,6 @@ const { User } = require('../../models')
 const gravatar = require('gravatar')
 const { nanoid } = require('nanoid')
 const sendEmail = require('../../helpers/sendEmail')
-// const createTemplate = require('../../helpers/mailGenerator')
 const template = require('../../helpers/templateConformationEmail')
 
 const { SITE_NAME } = process.env
@@ -27,7 +26,6 @@ const userSignup = async (req, res, next) => {
       to: email,
       subject: 'Welcome! Please confirm your email',
       html: template(SITE_NAME, verificationToken),
-      // html: createTemplate(email, SITE_NAME, verificationToken),
     }
     sendEmail(data)
 
