@@ -14,7 +14,7 @@ const userLogin = async (req, res, next) => {
     if (!user || !passwordCompare) {
       throw new Unauthorized('Email or password is wrong')
     }
-    const { _id, subscription } = user
+    const { _id, subscription, avatarURL } = user
     const payload = {
       id: _id,
     }
@@ -22,7 +22,7 @@ const userLogin = async (req, res, next) => {
     await User.findByIdAndUpdate(_id, { token })
     res.json({
       token,
-      user: { email, subscription },
+      user: { email, subscription, avatarURL },
     })
   } catch (error) {
     next(error)
