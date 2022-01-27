@@ -14,6 +14,10 @@ const userLogin = async (req, res, next) => {
     if (!user || !passwordCompare) {
       throw new Unauthorized('Email or password is wrong')
     }
+    if (!user.verify) {
+      throw new Unauthorized('Email not verified')
+    }
+
     const { _id, subscription, avatarURL } = user
     const payload = {
       id: _id,

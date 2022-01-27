@@ -12,6 +12,10 @@ const joiSchemaUserSubscription = Joi.object({
   subscription: Joi.string().valid('starter', 'business', 'pro').required(),
 })
 
+const joiSchemaUserEmail = Joi.object({
+  email: Joi.string().pattern(emailRegExp).required(),
+})
+
 const userValidation = (req, res, next) => {
   const { error } = joiSchemaUser.validate(req.body)
   if (error) {
@@ -27,4 +31,12 @@ const userSubscriptionValidation = (req, res, next) => {
   next()
 }
 
-module.exports = { userValidation, userSubscriptionValidation }
+const userEmailValidation = (req, res, next) => {
+  const { error } = joiSchemaUserEmail.validate(req.body)
+  if (error) {
+    throw new BadRequest(error.message)
+  }
+  next()
+}
+
+module.exports = { userValidation, userSubscriptionValidation, userEmailValidation }

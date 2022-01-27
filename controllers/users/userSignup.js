@@ -1,6 +1,11 @@
 const { Conflict } = require('http-errors')
 const { User } = require('../../models')
 const gravatar = require('gravatar')
+const { nanoid } = require('nanoid')
+const sendEmail = require('../../helpers/sendEmail')
+const template = require('../../helpers/templateConformationEmail')
+
+const { SITE_NAME } = process.env
 
 const userSignup = async (req, res, next) => {
   try {
@@ -11,9 +16,18 @@ const userSignup = async (req, res, next) => {
       throw new Conflict('Email in use')
     }
     const avatarURL = gravatar.url(email)
-    const newUser = new User({ email, subscription, avatarURL })
+    const verificationToken = nanoid()
+
+    const newUser = new User({ email, subscription, avatarURL, verificationToken })
     newUser.setPassword(password)
     newUser.save()
+
+    const data = {
+      to: email,
+      subject: 'Welcome! Please confirm your email',
+      html: template(SITE_NAME, verificationToken),
+    }
+    sendEmail(data)
 
     res.status(201).json({
       user: {
